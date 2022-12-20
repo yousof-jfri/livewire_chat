@@ -9,49 +9,42 @@ use App\Models\Message;
 
 class ChatList extends Component
 {
+    public $userId;
+    public $conversations;
+    public $receiverInstance;
+
+
     public function render()
     {
-        $users = User::where('id', '!=', \Auth::user()->id)->get();
+        return view('livewire.chat.chat-list');
+    }
 
-        return view('livewire.chat.chat-list', compact('users'));
+    public function mount()
+    {
+        $this->userId = \Auth::user()->id;
+
+        $this->conversations = Conversation::where('receiver_id', $this->userId)
+            ->orWhere('sender_id', $this->userId)
+            ->get();
     }
 
 
-    public function checkConversation($user)
+    public function getChatUserInstance(Conversation $conversation, $request)
     {
-        $conversation = Conversation::where('receiver_id', \Auth::user()->id)
-            ->where('sender_id', $user)
-            ->orWhere('receiver_id', $user)
-            ->where('sender_id', \Auth::user()->id)
-            ->get();
+        $this->userId = \Auth::user()->id;
 
-        if(count($conversation) == 0)
+        // get selected conversation
+        if($conversation->sender_id == $this->userId)
         {
-            // dd('no conversation');
-
-            $newConversation = Conversation::create([
-                'receiver_id' => $user,
-                'sender_id' => \Auth::user()->id,
-                'last_time_message' => 0,
-            ]);
-
-            $newMessage = Message::create([
-                'conversation_id' => $newConversation->id,
-                'sender_id' => \Auth::user()->id,
-                'receiver_id' => $user,
-                'text' => 'hello guys'
-            ]);
-            
-            $newConversation->last_time_message = $newMessage->created_at;
-
-            $newConversation->save();
-
-            dd('save');
+            $this->receiverInstance = User::firstWhere('id', $conversation->receiver_id);
+        }else {
+            $this->receiverInstance = User::firstWhere('id', $conversation->sender_id);
         }
-         
-        else if(count($conversation) > 0)
+
+
+        if(isset($request))
         {
-            dd('conversation exists');
+            return $this->receiverInstance->$request;
         }
     }
 }

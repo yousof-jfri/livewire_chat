@@ -10,7 +10,7 @@
                         </div>
 
                         <div class="flex flex-col">
-                            <h3 class="text-teal-500 font-semibold">Yousef Jafari</h3>
+                            <h3 class="text-teal-500 font-semibold">{{ auth()->user()->name }}</h3>
                             <span class="text-gray-400 text-sm">senior developer</span>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="flex flex-col">
-                            <h3 class="text-gray-500 font-semibold">{{ auth()->user()->name }}</h3>
+                            <h3 class="text-gray-500 font-semibold">Mahdi Jafari</h3>
                         </div>
 
                         <span class="bg-green-400 w-3 h-3 rounded-full"></span>

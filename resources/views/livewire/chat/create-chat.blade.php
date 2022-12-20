@@ -1,7 +1,12 @@
 <div>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Chat') }}
-        </h2>
-    </x-slot>
+    <div class="flex w-full gap-3 flex-col">
+        @foreach ($users as $user)
+            
+        <button wire:click="checkConversation({{ $user->id }})" class="w-full shadow-3xl rounded-xl px-3 py-2">
+            <span>{{ $user->name }}</span>
+        </button>
+        @endforeach
+    </div>
+
+    <a href="{{ route('chat') }}">go to chat</a>
 </div>
