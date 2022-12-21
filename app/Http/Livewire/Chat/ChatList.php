@@ -12,6 +12,9 @@ class ChatList extends Component
     public $userId;
     public $conversations;
     public $receiverInstance;
+    public $selectedConversation;
+
+    protected $listeners = ['chatUserSelected'];
 
 
     public function render()
@@ -46,5 +49,14 @@ class ChatList extends Component
         {
             return $this->receiverInstance->$request;
         }
+    }
+
+    public function chatUserSelected(Conversation $conversation, $receiverId)
+    {
+        $this->selectedConversation = $conversation;
+        
+        $receiverInstance = User::find($receiverId);
+        $this->emitTo('ChatBox', 'loadConversation', $this->selectedConversation, $receiverInstance);
+        dd('work');
     }
 }

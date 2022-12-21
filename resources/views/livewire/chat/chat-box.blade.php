@@ -1,6 +1,6 @@
 <div>
     <div class="w-full mt-5 h-full flex flex-col gap-3 overflow-y-scroll px-5 min-h-screen absolute top-0 left-0 py-24">
-        
+        @if($selectedConversation)
         <div class="flex items-center justify-start">
             <div>
                 <div class="px-3 py-2 bg-white shadow-3xl rounded-full">
@@ -27,5 +27,8 @@
                 </div>
             </div>
         </div>
+        @else
+        <span>no conversation selected</span>
+        @endif
     </div>
 </div>
