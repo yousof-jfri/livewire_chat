@@ -17,8 +17,8 @@ use App\Http\Livewire\Chat\CreateChat;
 */
 
 // livewire
-Route::get('users', CreateChat::class)->name('users');
-Route::get('/chat{key?}', Main::class)->name('chat');
+Route::get('users', CreateChat::class)->name('users')->middleware('auth');
+Route::get('/chat{key?}', Main::class)->name('chat')->middleware('auth');
 
 
 Route::get('/', function () {

@@ -21,15 +21,8 @@ class ChatBox extends Component
 
     protected $listeners = ['loadConversation'];
 
-    public function render()
-    {
-        return view('livewire.chat.chat-box');
-    }
-
     public function loadConversation(Conversation $conversation, User $receiver)
     {
-
-        dd('work');
         $this->selectedConversation = $conversation;
 
         $this->receiverInstance = $receiver;
@@ -42,4 +35,11 @@ class ChatBox extends Component
             ->take($this->paginateVar)
             ->get();
     }
+
+    public function render()
+    {
+        return view('livewire.chat.chat-box');
+    }
+
+    
 }

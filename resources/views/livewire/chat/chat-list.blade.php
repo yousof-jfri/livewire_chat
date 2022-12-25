@@ -9,7 +9,7 @@
         {{-- chat list:start --}}
         <div class="flex flex-col gap-2 mt-5">
             @foreach ($conversations as $conversation)
-            <div wire:click="$emit('chatUserSelected', {{ $conversation }}, {{ $this->getChatUserInstance($conversation, $name='id') }})" class="w-full flex items-center justify-between cursor-pointer hover:bg-white duration-150 px-3 py-2 hover:pl-4 rounded-xl">
+            <button type="button" class="block" wire:click="$emit('chatUserSelected', {{ $conversation }}, {{ $this->getChatUserInstance($conversation, $name="id") }})">
                 <div class="flex items-center justify-start gap-2">
                     <div class="w-12 h-12 overflow-hidden rounded-full bg-gray-100">
                         <img src="{{ asset('assets/profile/livewire.png') }}" alt="user_profile" class="w-full h-full object-cover">
@@ -27,7 +27,7 @@
                         {{ count($conversation->messages) }}
                     </span>
                 </div>
-            </div>
+            </button>
             @endforeach
 
         </div>

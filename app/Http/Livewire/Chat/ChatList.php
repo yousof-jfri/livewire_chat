@@ -17,6 +17,16 @@ class ChatList extends Component
     protected $listeners = ['chatUserSelected'];
 
 
+    public function chatUserSelected(Conversation $conversation, $receiverId)
+    {
+        $this->selectedConversation = $conversation;
+        
+        $receiverInstance = User::find($receiverId);
+        
+        $this->emitTo('chat.chat-box', 'loadConversation', $this->selectedConversation, $receiverInstance);
+    }
+
+
     public function render()
     {
         return view('livewire.chat.chat-list');
@@ -49,14 +59,5 @@ class ChatList extends Component
         {
             return $this->receiverInstance->$request;
         }
-    }
-
-    public function chatUserSelected(Conversation $conversation, $receiverId)
-    {
-        $this->selectedConversation = $conversation;
-        
-        $receiverInstance = User::find($receiverId);
-        $this->emitTo('ChatBox', 'loadConversation', $this->selectedConversation, $receiverInstance);
-        dd('work');
     }
 }
